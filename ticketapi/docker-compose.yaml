@@ -1,0 +1,27 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_NAME=neslisahgamze
+      - POSTGRES_USER=neslisahgamze
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=neslisahgamze
+      - POSTGRES_USER=neslisahgamze
+      - POSTGRES_PASSWORD=123456
+    depends_on:
+      - db
