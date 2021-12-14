@@ -3,13 +3,13 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from tickets.models import Ticket, Category, Seat, Section, Event
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     """ User serializers """
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
         model = User
         fields = ('url', 'username', 'email', 'is_staff')
-class TicketSerializer(serializers.HyperlinkedModelSerializer): # pylint: disable=too-few-public-methods
+class TicketSerializer(serializers.ModelSerializer): # pylint: disable=too-few-public-methods
     """ Ticket serializers """
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
@@ -17,28 +17,28 @@ class TicketSerializer(serializers.HyperlinkedModelSerializer): # pylint: disabl
         fields = (
             'id','title', 'ticket_id','user', 'status', 'content', 'category','created', 'modified')
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     """ Categori serializers """
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
         model = Category
         fields = ('id', 'name', 'slug')
 
-class SeatSerializer(serializers.HyperlinkedModelSerializer):
+class SeatSerializer(serializers.ModelSerializer):
     """ Seat serializers """
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
         model = Seat
         fields = '__all__'
 
-class SectionSerializer(serializers.HyperlinkedModelSerializer):
+class SectionSerializer(serializers.ModelSerializer):
     """ Section serializers """
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
         model = Section
         fields = '__all__'
 
-class EventSerializer(serializers.HyperlinkedModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     """ Event serializers """
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
