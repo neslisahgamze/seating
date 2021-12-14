@@ -36,7 +36,7 @@ def find_consecutive_number(seats, size):
 def update_seats_unavailable(id_list, user):
     """ Update seat unavailable """
     try:
-        Seat.objects.filter(id__in=id_list).update(isEmpty=False, booked_by=user) # pylint: disable=maybe-no-member
+        Seat.objects.filter(id__in=id_list).update(_isEmpty=False, booked_by=user) # pylint: disable=maybe-no-member
     except Exception:
         pass
 
@@ -46,7 +46,7 @@ def seating_by_size(groups_of_users, user, property = None, event_no = None, sec
         params = {
             'property' : property,
             'event_no' : event_no,
-            'isEmpty': True,
+            '_isEmpty': True,
             'section': section }
 
         arguments = {}

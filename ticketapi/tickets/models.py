@@ -109,7 +109,7 @@ class Seat(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     booked_by = models.EmailField(max_length = 254, blank=True, null=True)
     property = models.CharField(choices=PropertiesType.choices(), max_length= 120)
-    isEmpty = models.BooleanField(null=True, blank=True, default=True)
+    _isEmpty = models.BooleanField(null=True, blank=True, default=True)
     event_no = models.ForeignKey(Event, on_delete=models.CASCADE, null = True)
 
     def __str__(self):
