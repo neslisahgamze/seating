@@ -51,13 +51,13 @@ class EventViewSet(viewsets.ModelViewSet): # pylint: disable=too-many-ancestors
         """ Find seats """
         user_id = self.request.user.id
         event_no = kwargs['pk']
-        property = request.POST.get('property', None)
+        _property = request.POST.get('property', None)
         section = request.POST.get('section', None)
         group_of_users = request.POST.get('group_of_users', None)
         user = User.objects.filter(id=user_id).values_list('email', flat=True)[0]
         result = seating_by_size(
             event_no = event_no,
-            property = property,
+            _property = _property,
             groups_of_users = int(group_of_users),
             section = section,
             user=user)

@@ -40,11 +40,11 @@ def update_seats_unavailable(id_list, user):
     except Exception:
         pass
 
-def seating_by_size(groups_of_users, user, property = None, event_no = None, section = None):
+def seating_by_size(groups_of_users, user, _property = None, event_no = None, section = None):
     """ Seating by size """
     try:
         params = {
-            'property' : property,
+            'property' : _property,
             'event_no' : event_no,
             '_isEmpty': True,
             'section': section }
