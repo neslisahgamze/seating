@@ -63,11 +63,11 @@ def seating_by_size(groups_of_users, user, _property = None, event_no = None, se
         grouped_seats = group_seats(empty_seats)
 
         for seat in grouped_seats:
-            if groups_of_users <= seat['size']:
-                if groups_of_users >= 1:
-                    id_list = find_consecutive_number(seat['seats'], groups_of_users)
-                    if id_list:
-                        update_seats_unavailable(id_list=id_list, user=user)
-                        return id_list
+            if 1 <= groups_of_users <= seat['size']:
+                id_list = find_consecutive_number(seat['seats'], groups_of_users)
+                if id_list:
+                    update_seats_unavailable(id_list=id_list, user=user)
+                    return id_list
+
     except Exception:
         pass

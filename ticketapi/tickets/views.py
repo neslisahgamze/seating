@@ -54,7 +54,7 @@ class EventViewSet(viewsets.ModelViewSet): # pylint: disable=too-many-ancestors
         _property = request.POST.get('property', None)
         section = request.POST.get('section', None)
         group_of_users = request.POST.get('group_of_users', None)
-        user = User.objects.filter(id=user_id).values_list('email', flat=True)[0]
+        user = User.objects.get(pk=user_id).email
         result = seating_by_size(
             event_no = event_no,
             _property = _property,
