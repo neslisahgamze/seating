@@ -2,3 +2,5 @@
 ticketapp
 ticketapi/tickets/migrations/
 .vscode
+data/
+db.sqlite3
