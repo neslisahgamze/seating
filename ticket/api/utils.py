@@ -7,9 +7,11 @@ from rest_framework.exceptions import APIException
 from .models import Seat
 
 class MinValueError(APIException):
+    """ MinValueError class """
     status_code = 400
 
 class NotFound(APIException):
+    """ NotFound class """
     status_code = 404
 
 
@@ -69,6 +71,6 @@ def seating_by_size(groups_of_users, user, _property = None, event_no = None, se
         if groups_of_users <= seat['size']:
             id_list = find_consecutive_number(seat['seats'], groups_of_users)
             if id_list:
-                Seat.objects.filter(id__in=id_list).update(_isEmpty=False, booked_by=user)
+                Seat.objects.filter(id__in=id_list).update(_isEmpty=False, booked_by=user) # pylint: disable=maybe-no-member
                 return id_list
     raise  NotFound

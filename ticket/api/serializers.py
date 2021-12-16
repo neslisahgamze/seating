@@ -47,8 +47,9 @@ class EventSerializer(serializers.ModelSerializer):
 class AllocateSerializer(serializers.ModelSerializer):
     """ Allocate serializers """
     group_of_users = serializers.IntegerField(min_value=1, max_value=9)
-    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-    
+    user = serializers.PrimaryKeyRelatedField(read_only=True,
+        default=serializers.CurrentUserDefault())
+
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
         model = Seat

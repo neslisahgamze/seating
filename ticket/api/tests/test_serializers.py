@@ -2,10 +2,10 @@
 # pylint: disable=maybe-no-member
 from django.test import TestCase
 
-from api.models import Seat
-from api.models import Event
-from api.models import Category
-from api.models import Section
+from api.tests.factories import SeatFactory
+from api.tests.factories import EventFactory
+from api.tests.factories import CategoryFactory
+from api.tests.factories import SectionFactory
 
 from api.serializers import SeatSerializer
 from api.serializers import EventSerializer
@@ -17,29 +17,29 @@ class SerializersTests(TestCase):
     """ Serializers tests """
     def setUp(self):
         """ Set up """
-        Category.objects.create(
+        CategoryFactory(
             name='First',
             slug='first'
         )
 
-        Section.objects.create(
+        SectionFactory(
             name='High',
             rank='1st'
         )
 
-        Event.objects.create(
+        EventFactory(
             name='Evgeny Grinko',
-            category=Category.objects.get(id=1)
+            category=CategoryFactory(name='First')
         )
 
-        Seat.objects.create(
+        SeatFactory(
             seat_no = 1,
             row_no = 1,
             column_no = 1,
-            section = Section.objects.get(id=1),
+            section = SectionFactory(),
             property = '',
             _isEmpty = True,
-            event_no = Event.objects.get(id=1)
+            event_no = EventFactory(name='Evgeny Grinko')
         )
 
     def test_category_serializer_isvalid(self):
@@ -64,7 +64,7 @@ class SerializersTests(TestCase):
 
     def test_event_serializer_isvalid(self):
         """ Test event isvalid """
-        category = Category.objects.get(id=1)
+        category = CategoryFactory()
         serializer = EventSerializer(data={"name":"Evgeny Grinko","category": category.id})
         self.assertTrue(serializer.is_valid())
 
@@ -85,16 +85,6 @@ class SerializersTests(TestCase):
         """ Test set notvalid """
         serializer = SeatSerializer(data={"phone":"0902667safs3395"})
         self.assertFalse(serializer.is_valid())
-
-    # def test_allocate_serializer_isvalid(self):
-    #   User.objects.create(email='neslisahgamze@gmail.com')
-    #   user = User.objects.get(id=1)
-    #   context = {'request': { user }}
-    #   serializer = AllocateSerializer(
-    #     data={"group_of_users": 1 , "property": "BASIC", "section": 1, "user": 1},
-    #     context=context)
-    #   print(serializer)
-    #   self.assertTrue(serializer.is_valid())
 
     def test_allocate_notvalid(self):
         """ Test allocate notvalid """

@@ -1,7 +1,9 @@
+""" Api urls """
 from django.urls import path, include
+from django.views.generic import TemplateView
+
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
-from django.views.generic import TemplateView
 
 from api.views import UserViewSet
 from api.views import TicketViewSet
@@ -24,7 +26,7 @@ urlpatterns = [
     path(r'api/events/<int:pk>/seats', EventViewSet.as_view({"post": "find_seats"})),
     path('openapi/', get_schema_view(
         title="Ticket Service",
-        description="API for seating algorithm" 
+        description="API for seating algorithm"
     ), name='openapi-schema'),
     path('docs/', TemplateView.as_view(
         template_name='documentation.html',
