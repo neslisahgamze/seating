@@ -1,12 +1,17 @@
 """ Utils functions """
 from itertools import groupby
 from operator import itemgetter
-import pdb
-from pdb import set_trace as bp
 
-from django.core.exceptions import BadRequest
+from rest_framework.exceptions import APIException
 
 from .models import Seat
+
+class MinValueError(APIException):
+    status_code = 400
+
+class NotFound(APIException):
+    status_code = 404
+
 
 def group_seats(seats):
     """ Group seats """
@@ -26,7 +31,7 @@ def find_consecutive_number(seats, size):
     for i in seats:
         num.append(i['id'])
 
-    if len(num) == 1:
+    if len(num) == 1 and size == 1:
         return num
     grouped = groupby(enumerate(num), key=lambda x: x[0] - x[1])
     all_groups = ([i[1] for i in g] for _, g in grouped)
@@ -36,21 +41,6 @@ def find_consecutive_number(seats, size):
             return group
 
     return False
-
-def update_seats_unavailable(id_list, user):
-    """ Update seat unavailable """
-    try:
-        Seat.objects.filter(id__in=id_list).update(_isEmpty=False, booked_by=user) # pylint: disable=maybe-no-member
-    except Exception:
-        return
-
-from rest_framework.exceptions import APIException
-class MinValueError(APIException):
-    status_code = 400
-
-class NotFound(APIException):
-    status_code = 404
-
 
 def seating_by_size(groups_of_users, user, _property = None, event_no = None, section = None):
     """ Seating by size """
@@ -79,6 +69,6 @@ def seating_by_size(groups_of_users, user, _property = None, event_no = None, se
         if groups_of_users <= seat['size']:
             id_list = find_consecutive_number(seat['seats'], groups_of_users)
             if id_list:
-                update_seats_unavailable(id_list=id_list, user=user)
+                Seat.objects.filter(id__in=id_list).update(_isEmpty=False, booked_by=user)
                 return id_list
     raise  NotFound

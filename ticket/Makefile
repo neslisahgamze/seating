@@ -19,4 +19,4 @@ makemigrations:
 	docker-compose run --rm web python manage.py makemigrations
 
 test:
-	docker-compose run --rm web python manage.py test
+	docker-compose run --rm web python manage.py test api.tests
