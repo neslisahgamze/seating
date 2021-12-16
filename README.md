@@ -76,3 +76,7 @@ The projects' Makefiles should provide the following commands, if applicable:
  - ### `test`
 
   	Run all tests.
+
+
+  **NOTE:** Swagger is available at {{your_base_url}}/api/docs/
+	
