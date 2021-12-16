@@ -12,7 +12,7 @@
 
 `$ git clone git@github.com:neslisahgamze/seating.git`
 
-`$ cd ticketapi`
+`$ cd ticket`
 
   
 
