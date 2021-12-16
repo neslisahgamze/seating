@@ -1,7 +1,7 @@
 """ Serializers define the API representation. """
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from tickets.models import Ticket, Category, Seat, Section, Event
+from api.models import Ticket, Category, Seat, Section, Event
 
 class UserSerializer(serializers.ModelSerializer):
     """ User serializers """
@@ -15,7 +15,7 @@ class TicketSerializer(serializers.ModelSerializer): # pylint: disable=too-few-p
         """ Class meta docstring """
         model = Ticket
         fields = (
-            'id','title', 'ticket_id','user', 'status', 'content', 'category','created', 'modified')
+            'id','title', 'ticket_id', 'status', 'content', 'category','created', 'modified')
 
 class CategorySerializer(serializers.ModelSerializer):
     """ Categori serializers """

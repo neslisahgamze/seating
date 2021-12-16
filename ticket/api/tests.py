@@ -2,16 +2,16 @@
 # pylint: disable=maybe-no-member
 from django.test import TestCase
 
-from tickets.models import Seat
-from tickets.models import Event
-from tickets.models import Category
-from tickets.models import Section
+from api.models import Seat
+from api.models import Event
+from api.models import Category
+from api.models import Section
 
-from ticketapi.serializers import SeatSerializer
-from ticketapi.serializers import EventSerializer
-from ticketapi.serializers import CategorySerializer
-from ticketapi.serializers import SectionSerializer
-from ticketapi.serializers import AllocateSerializer
+from ticket.serializers import SeatSerializer
+from ticket.serializers import EventSerializer
+from ticket.serializers import CategorySerializer
+from ticket.serializers import SectionSerializer
+from ticket.serializers import AllocateSerializer
 
 class ModelsTests(TestCase):
     """ Models test cases """

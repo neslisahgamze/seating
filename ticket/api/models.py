@@ -2,7 +2,6 @@
 import uuid
 from enum import Enum
 from django.db import models
-from django.contrib.auth.models import User
 
 def generate_ticket_id():
     """ Function generates ticket id"""
@@ -50,31 +49,6 @@ class Status(Enum):
     def choices(cls):
         """ Return choices"""
         return tuple((i.name, i.value) for i in cls)
-
-class Ticket(models.Model):
-    """ Ticket model"""
-    title = models.CharField(max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    category = models.ForeignKey("Category", on_delete=models.CASCADE)
-    ticket_id = models.CharField(max_length=255, blank=True)
-    status = models.CharField(choices=Status.choices(), max_length=155, default="pending")
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.title} - {self.ticket_id}'
-
-    def save(self, *args, **kwargs):
-        if len(self.ticket_id.strip(" "))==0:
-            self.ticket_id = generate_ticket_id()
-
-        super().save(*args, **kwargs) # Call the real   save() method
-
-    class Meta: # pylint: disable=too-few-public-methods
-        """ class """
-        ordering = ["-created"]
-
 class Category(models.Model):
     """ Category model"""
     name = models.CharField(max_length=200)
@@ -124,3 +98,30 @@ class Seat(models.Model):
     class Meta: # pylint: disable=too-few-public-methods
         """ class """
         ordering = ["row_no", "column_no"]
+
+
+class Ticket(models.Model):
+    """ Ticket model"""
+    title = models.CharField(max_length=255)
+    booked_by = models.EmailField(max_length = 254, blank=True, null=True)
+    content = models.TextField()
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
+    ticket_id = models.CharField(max_length=255, blank=True)
+    status = models.CharField(choices=Status.choices(), max_length=155, default="pending")
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    seat_no = models.ForeignKey(Seat, on_delete=models.CASCADE, null=True)
+    event_no = models.ForeignKey(Event, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f'{self.title} - {self.ticket_id}'
+
+    def save(self, *args, **kwargs):
+        if len(self.ticket_id.strip(" "))==0:
+            self.ticket_id = generate_ticket_id()
+
+        super().save(*args, **kwargs) # Call the real   save() method
+
+    class Meta: # pylint: disable=too-few-public-methods
+        """ class """
+        ordering = ["-created"]
