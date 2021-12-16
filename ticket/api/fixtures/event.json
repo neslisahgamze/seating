@@ -1,0 +1,18 @@
+[
+{
+    "model": "api.event",
+    "pk": 1,
+    "fields": {
+        "name": "Evgeny Grinko",
+        "category": 1
+    }
+},
+{
+    "model": "api.event",
+    "pk": 2,
+    "fields": {
+        "name": "Coctail Workshop",
+        "category": 3
+    }
+}
+]

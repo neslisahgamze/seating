@@ -38,6 +38,12 @@
 
 	`$ python manage.py createsuperuser`
 
+- You can load example data:
+
+	`$ python manage.py loaddata < api/fixtures/category.json`
+	`$ python manage.py loaddata < api/fixtures/event.json`
+	`$ python manage.py loaddata < api/fixtures/seat.json`
+	`$ python manage.py loaddata < api/fixtures/section.json`
   
 ### Run with Docker
 

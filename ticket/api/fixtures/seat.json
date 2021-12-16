@@ -1,0 +1,86 @@
+[
+{
+    "model": "api.seat",
+    "pk": 1,
+    "fields": {
+        "seat_no": 1,
+        "row_no": 1,
+        "column_no": 1,
+        "section": 1,
+        "booked_by": null,
+        "property": "BASIC",
+        "_isEmpty": true,
+        "event_no": 1
+    }
+},
+{
+    "model": "api.seat",
+    "pk": 2,
+    "fields": {
+        "seat_no": 2,
+        "row_no": 1,
+        "column_no": 2,
+        "section": 1,
+        "booked_by": null,
+        "property": "BASIC",
+        "_isEmpty": true,
+        "event_no": 1
+    }
+},
+{
+    "model": "api.seat",
+    "pk": 3,
+    "fields": {
+        "seat_no": 3,
+        "row_no": 1,
+        "column_no": 3,
+        "section": 1,
+        "booked_by": null,
+        "property": "BASIC",
+        "_isEmpty": true,
+        "event_no": 1
+    }
+},
+{
+    "model": "api.seat",
+    "pk": 4,
+    "fields": {
+        "seat_no": 4,
+        "row_no": 10,
+        "column_no": 1,
+        "section": 2,
+        "booked_by": null,
+        "property": "HIGH",
+        "_isEmpty": true,
+        "event_no": 1
+    }
+},
+{
+    "model": "api.seat",
+    "pk": 5,
+    "fields": {
+        "seat_no": 5,
+        "row_no": 10,
+        "column_no": 2,
+        "section": 2,
+        "booked_by": null,
+        "property": "HIGH",
+        "_isEmpty": true,
+        "event_no": 1
+    }
+},
+{
+    "model": "api.seat",
+    "pk": 6,
+    "fields": {
+        "seat_no": 6,
+        "row_no": 10,
+        "column_no": 3,
+        "section": 2,
+        "booked_by": null,
+        "property": "HIGH",
+        "_isEmpty": true,
+        "event_no": 1
+    }
+}
+]

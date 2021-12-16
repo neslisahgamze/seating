@@ -1,0 +1,18 @@
+[
+{
+    "model": "api.section",
+    "pk": 1,
+    "fields": {
+        "name": "MAIN_HALL",
+        "rank": null
+    }
+},
+{
+    "model": "api.section",
+    "pk": 2,
+    "fields": {
+        "name": "BALCONY",
+        "rank": "FIRST"
+    }
+}
+]
