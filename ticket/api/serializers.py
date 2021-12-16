@@ -2,7 +2,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from api.models import Ticket, Category, Seat, Section, Event
-
 class UserSerializer(serializers.ModelSerializer):
     """ User serializers """
     class Meta:  # pylint: disable=too-few-public-methods
@@ -47,9 +46,9 @@ class EventSerializer(serializers.ModelSerializer):
 
 class AllocateSerializer(serializers.ModelSerializer):
     """ Allocate serializers """
-    group_of_users = serializers.IntegerField(min_value=0, max_value=9, default= 1)
-    user = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault())
+    group_of_users = serializers.IntegerField(min_value=1, max_value=9)
+    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    
     class Meta:  # pylint: disable=too-few-public-methods
         """ Class meta docstring """
         model = Seat

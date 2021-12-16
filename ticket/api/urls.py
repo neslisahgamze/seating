@@ -23,8 +23,8 @@ urlpatterns = [
     path(r'', include(router.urls)),
     path(r'api/events/<int:pk>/seats', EventViewSet.as_view({"post": "find_seats"})),
     path('openapi/', get_schema_view(
-        title="School Service",
-        description="API for developers who would love to use our service in a School project" 
+        title="Ticket Service",
+        description="API for seating algorithm" 
     ), name='openapi-schema'),
     path('docs/', TemplateView.as_view(
         template_name='documentation.html',

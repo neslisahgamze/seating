@@ -1,6 +1,10 @@
 """ Utils functions """
 from itertools import groupby
 from operator import itemgetter
+import pdb
+from pdb import set_trace as bp
+
+from django.core.exceptions import BadRequest
 
 from .models import Seat
 
@@ -38,36 +42,43 @@ def update_seats_unavailable(id_list, user):
     try:
         Seat.objects.filter(id__in=id_list).update(_isEmpty=False, booked_by=user) # pylint: disable=maybe-no-member
     except Exception:
-        pass
+        return
+
+from rest_framework.exceptions import APIException
+class MinValueError(APIException):
+    status_code = 400
+
+class NotFound(APIException):
+    status_code = 404
+
 
 def seating_by_size(groups_of_users, user, _property = None, event_no = None, section = None):
     """ Seating by size """
-    try:
-        params = {
-            'property' : _property,
-            'event_no' : event_no,
-            '_isEmpty': True,
-            'section': section }
+    params = {
+        'property' : _property,
+        'event_no' : event_no,
+        '_isEmpty': True,
+        'section': section }
 
-        arguments = {}
-        for key, value in params.items():
-            if value:
-                arguments[key] = value
+    arguments = {}
+    for key, value in params.items():
+        if value:
+            arguments[key] = value
 
-        empty_seats = Seat.objects.filter( # pylint: disable=maybe-no-member
-            **arguments).order_by('row_no', 'column_no').values('row_no', 'column_no', 'id')
+    empty_seats = Seat.objects.filter( # pylint: disable=maybe-no-member
+        **arguments).order_by('row_no', 'column_no').values('row_no', 'column_no', 'id')
 
-        if empty_seats is None:
-            return
+    if empty_seats is None or empty_seats.count() < groups_of_users:
+        raise NotFound
 
-        grouped_seats = group_seats(empty_seats)
+    grouped_seats = group_seats(empty_seats)
 
-        for seat in grouped_seats:
-            if 1 <= groups_of_users <= seat['size']:
-                id_list = find_consecutive_number(seat['seats'], groups_of_users)
-                if id_list:
-                    update_seats_unavailable(id_list=id_list, user=user)
-                    return id_list
-
-    except Exception:
-        pass
+    for seat in grouped_seats:
+        if groups_of_users < 1:
+            raise MinValueError
+        if groups_of_users <= seat['size']:
+            id_list = find_consecutive_number(seat['seats'], groups_of_users)
+            if id_list:
+                update_seats_unavailable(id_list=id_list, user=user)
+                return id_list
+    raise  NotFound
